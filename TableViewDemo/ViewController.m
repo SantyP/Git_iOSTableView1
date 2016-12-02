@@ -30,6 +30,7 @@
 - (void) loadDataFromNetwork : (NSString *)url {
     
     // Dispatch network call into a Queue : GCD
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         NSError *error;
@@ -42,11 +43,13 @@
         self.data = responseDict[@"rows"];
         // Main Thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            // Refresh Table View
             [self.tableView reloadData];
         });
     });
 }
+
+#pragma mark - UITableViewDelegate Methods & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -67,9 +70,10 @@
     }
     // data validation
     if (![self.data[indexPath.row][@"title"] isKindOfClass:[NSNull class]]) {
-        cell.textLabel.text = self.data[indexPath.row][@"title"];
+        if (![self.data[indexPath.row][@"description"] isKindOfClass:[NSNull class]]) {
+            cell.textLabel.text = self.data[indexPath.row][@"description"];
+        }
     }
-    
     return cell;
 }
 
