@@ -7,10 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "CustomCell.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) NSMutableArray *data;
+@property (nonatomic, strong) NSMutableArray *images;
 
 @end
 
@@ -20,8 +22,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.data = [[NSMutableArray alloc] init];
+    self.images = [[NSMutableArray alloc] init];
     self.tableView.delegate= self;
     self.tableView.dataSource= self;
+    self.tableView.estimatedRowHeight= 44.0;
+    
     //
     [self loadDataFromNetwork:@"https://dl.dropboxusercontent.com/u/746330/facts.json"];
     
@@ -44,6 +49,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView reloadData];
+            //
+            [self loadThumbnailImagesFromNetwork];
         });
     });
 }
@@ -59,18 +66,60 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *cellIndentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+    static NSString *cellIdentifier = @"CustomCell";
+    CustomCell *cell = (CustomCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }    // data validation
+    if (![self isNULL:self.data[indexPath.row][@"title"]]) {
+        cell.titleLabel.text = self.data[indexPath.row][@"title"];
+        if (![self isNULL:self.data[indexPath.row][@"description"]]) {
+            cell.descLabel.text = self.data[indexPath.row][@"description"];
+        }
     }
-    // data validation
-    if (![self.data[indexPath.row][@"title"] isKindOfClass:[NSNull class]]) {
-        cell.textLabel.text = self.data[indexPath.row][@"title"];
-    }
-    
+//    if ([self.images count] > 0 && (indexPath.row < [self.images count]) && [self.images objectAtIndex:indexPath.row]) {
+//        [cell.imageView setImage:self.images[indexPath.row][self.data[indexPath.row][@"title"]]];
+//        
+//    }
     return cell;
+}
+
+- (void) loadThumbnailImagesFromNetwork {
+    // Dispatch network call into a Queue : GCD
+    for (int i= 0; i < [self.data count]; i++) {
+        if (![self isNULL:self.data[i][@"imageHref"]] && ![self.data[i][@"imageHref"] isEqualToString:@"null"]) {
+            // Load Image from network
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                
+                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.data[i][@"imageHref"]]];
+                NSLog(@"");
+                UIImage *image = [UIImage imageWithData:imageData];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                if (image) {
+                    //[self.images addObject:image];
+                    [dict setObject:image forKey:self.data[i][@"title"]];
+                } else {
+                    //[self.images addObject:[UIImage imageNamed:@"placeholder"]];
+                    [dict setObject:[UIImage imageNamed:@"placeholder"] forKey:self.data[i][@"title"]];
+                }
+                
+                
+                [self.images addObject:dict];
+                // Main Thread
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            });
+        }
+    }
+}
+
+
+- (BOOL) isNULL : (id)value {
+    return [value isKindOfClass:[NSNull class]];
 }
 
 - (void)didReceiveMemoryWarning {
