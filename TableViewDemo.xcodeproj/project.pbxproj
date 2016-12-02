@@ -14,6 +14,8 @@
 		CFA0468A1DF0F7C700A666C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFA046891DF0F7C700A666C9 /* Assets.xcassets */; };
 		CFA0468D1DF0F7C700A666C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA0468B1DF0F7C700A666C9 /* LaunchScreen.storyboard */; };
 		CFA046981DF0F7C700A666C9 /* TableViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA046971DF0F7C700A666C9 /* TableViewDemoTests.m */; };
+		CFA046A41DF1088D00A666C9 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFA046A31DF1088D00A666C9 /* CustomCell.xib */; };
+		CFA046A71DF1092200A666C9 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA046A61DF1092200A666C9 /* CustomCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,9 @@
 		CFA046931DF0F7C700A666C9 /* TableViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA046971DF0F7C700A666C9 /* TableViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewDemoTests.m; sourceTree = "<group>"; };
 		CFA046991DF0F7C700A666C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFA046A31DF1088D00A666C9 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		CFA046A51DF1092200A666C9 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		CFA046A61DF1092200A666C9 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +86,7 @@
 		CFA0467C1DF0F7C700A666C9 /* TableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CFA046A21DF1085700A666C9 /* View */,
 				CFA046801DF0F7C700A666C9 /* AppDelegate.h */,
 				CFA046811DF0F7C700A666C9 /* AppDelegate.m */,
 				CFA046831DF0F7C700A666C9 /* ViewController.h */,
@@ -109,6 +115,16 @@
 				CFA046991DF0F7C700A666C9 /* Info.plist */,
 			);
 			path = TableViewDemoTests;
+			sourceTree = "<group>";
+		};
+		CFA046A21DF1085700A666C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFA046A31DF1088D00A666C9 /* CustomCell.xib */,
+				CFA046A51DF1092200A666C9 /* CustomCell.h */,
+				CFA046A61DF1092200A666C9 /* CustomCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +209,7 @@
 			files = (
 				CFA0468D1DF0F7C700A666C9 /* LaunchScreen.storyboard in Resources */,
 				CFA0468A1DF0F7C700A666C9 /* Assets.xcassets in Resources */,
+				CFA046A41DF1088D00A666C9 /* CustomCell.xib in Resources */,
 				CFA046881DF0F7C700A666C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +230,7 @@
 			files = (
 				CFA046851DF0F7C700A666C9 /* ViewController.m in Sources */,
 				CFA046821DF0F7C700A666C9 /* AppDelegate.m in Sources */,
+				CFA046A71DF1092200A666C9 /* CustomCell.m in Sources */,
 				CFA0467F1DF0F7C700A666C9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
