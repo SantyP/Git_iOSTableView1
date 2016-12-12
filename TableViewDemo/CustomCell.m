@@ -12,9 +12,7 @@
 
 
 - (void) layoutSubviews {
-    [super layoutSubviews];
-    CGRect bounds = self.bounds;
-    
+    [super layoutSubviews];    
     [self.imageView setFrame:CGRectMake(0, (self.bounds.size.height - 80) /2, 80, 80)];
 }
 
