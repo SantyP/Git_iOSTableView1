@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C02C90BD1DF154980005E8E5 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C02C90BC1DF154980005E8E5 /* CustomCell.xib */; };
+		C02C90C01DF1554D0005E8E5 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C90BF1DF1554D0005E8E5 /* CustomCell.m */; };
 		CFA0467F1DF0F7C700A666C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA0467E1DF0F7C700A666C9 /* main.m */; };
 		CFA046821DF0F7C700A666C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA046811DF0F7C700A666C9 /* AppDelegate.m */; };
 		CFA046851DF0F7C700A666C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA046841DF0F7C700A666C9 /* ViewController.m */; };
@@ -27,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C02C90BC1DF154980005E8E5 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		C02C90BE1DF1554D0005E8E5 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		C02C90BF1DF1554D0005E8E5 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		CFA0467A1DF0F7C600A666C9 /* TableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA0467E1DF0F7C700A666C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CFA046801DF0F7C700A666C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -60,6 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C02C90BB1DF154830005E8E5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C02C90BC1DF154980005E8E5 /* CustomCell.xib */,
+				C02C90BE1DF1554D0005E8E5 /* CustomCell.h */,
+				C02C90BF1DF1554D0005E8E5 /* CustomCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		CFA046711DF0F7C600A666C9 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +96,7 @@
 		CFA0467C1DF0F7C700A666C9 /* TableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C02C90BB1DF154830005E8E5 /* View */,
 				CFA046801DF0F7C700A666C9 /* AppDelegate.h */,
 				CFA046811DF0F7C700A666C9 /* AppDelegate.m */,
 				CFA046831DF0F7C700A666C9 /* ViewController.h */,
@@ -193,6 +209,7 @@
 			files = (
 				CFA0468D1DF0F7C700A666C9 /* LaunchScreen.storyboard in Resources */,
 				CFA0468A1DF0F7C700A666C9 /* Assets.xcassets in Resources */,
+				C02C90BD1DF154980005E8E5 /* CustomCell.xib in Resources */,
 				CFA046881DF0F7C700A666C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +230,7 @@
 			files = (
 				CFA046851DF0F7C700A666C9 /* ViewController.m in Sources */,
 				CFA046821DF0F7C700A666C9 /* AppDelegate.m in Sources */,
+				C02C90C01DF1554D0005E8E5 /* CustomCell.m in Sources */,
 				CFA0467F1DF0F7C700A666C9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,6 +422,7 @@
 				CFA0469E1DF0F7C700A666C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CFA0469F1DF0F7C700A666C9 /* Build configuration list for PBXNativeTarget "TableViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +431,7 @@
 				CFA046A11DF0F7C700A666C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

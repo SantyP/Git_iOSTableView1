@@ -7,10 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "CustomCell.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) NSMutableArray *data;
+@property (nonatomic, strong) NSMutableDictionary *thumbDict;
 
 @end
 
@@ -22,6 +24,8 @@
     self.data = [[NSMutableArray alloc] init];
     self.tableView.delegate= self;
     self.tableView.dataSource= self;
+    self.tableView.estimatedRowHeight= 44.0;
+    self.thumbDict = [[NSMutableDictionary alloc] init];
     //
     [self loadDataFromNetwork:@"https://dl.dropboxusercontent.com/u/746330/facts.json"];
     
@@ -63,20 +67,52 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIndentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+    
+    CustomCell *cell = (CustomCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:self options:nil] firstObject];
     }
-    // data validation
+    
+    // Set title and description
     if (![self.data[indexPath.row][@"title"] isKindOfClass:[NSNull class]]) {
+         cell.titleLbl.text = self.data[indexPath.row][@"title"];
         if (![self.data[indexPath.row][@"description"] isKindOfClass:[NSNull class]]) {
-            cell.textLabel.text = self.data[indexPath.row][@"description"];
+            cell.descLbl.text = self.data[indexPath.row][@"description"];
+        }
+    }
+    // Set the image
+    NSString *indexKey= [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    if ([self.thumbDict objectForKey:indexKey]) {
+        [cell.imageView setImage:self.thumbDict[indexKey]];
+    } else {
+        [cell.imageView setImage:[UIImage imageNamed:@"placeholder"]];
+        if (![self.data[indexPath.row][@"imageHref"] isKindOfClass:[NSNull class]]) {
+            [self loadImagefromNetwork:self.data[indexPath.row][@"imageHref"] withRowIndex:indexKey];
         }
     }
     return cell;
 }
 
+
+- (void) loadImagefromNetwork : (NSString *)imageUrl withRowIndex : (NSString *)rowIndex{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            // Load image in the background
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+            UIImage *thumbImage = [UIImage imageWithData:imageData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (thumbImage) {
+                    [self.thumbDict setObject:thumbImage forKey:rowIndex];
+                    [self.tableView reloadData];
+                } else {
+                    [self.thumbDict setObject:[UIImage imageNamed:@"placeholder"] forKey:rowIndex];
+                }
+            });
+        });
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
